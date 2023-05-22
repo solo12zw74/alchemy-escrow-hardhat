@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import deploy from './deploy';
 import Escrow from './Escrow';
 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 export async function approve(escrowContract, signer) {
   const approveTxn = await escrowContract.connect(signer).approve();
@@ -14,17 +13,16 @@ function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
+  const [provider] = useState(new ethers.providers.Web3Provider(window.ethereum));
 
   useEffect(() => {
     async function getAccounts() {
       const accounts = await provider.send('eth_requestAccounts', []);
-
       setAccount(accounts[0]);
       setSigner(provider.getSigner());
     }
-
     getAccounts();
-  }, [account]);
+  }, [provider, account]);
 
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
