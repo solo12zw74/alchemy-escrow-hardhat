@@ -57,17 +57,17 @@ function App() {
         <h1> New Contract </h1>
         <label>
           Arbiter Address
-          <input type="text" id="arbiter" />
+          <input type="text" id="arbiter" defaultValue="0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC" />
         </label>
 
         <label>
           Beneficiary Address
-          <input type="text" id="beneficiary" />
+          <input type="text" id="beneficiary" defaultValue="0x70997970C51812dc3A010C7d01b50e0d17dc79C8" />
         </label>
 
         <label>
           Deposit Amount (in Wei)
-          <input type="text" id="wei" />
+          <input type="text" id="wei" defaultValue={ethers.utils.parseEther("1.234")} />
         </label>
 
         <div
