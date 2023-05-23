@@ -13,7 +13,7 @@ function App() {
   const [escrows, setEscrows] = useState([]);
   const [account, setAccount] = useState();
   const [signer, setSigner] = useState();
-  const [provider] = useState(new ethers.providers.Web3Provider(window.ethereum));
+  const [provider] = useState(new ethers.BrowserProvider(window.ethereum));
 
   useEffect(() => {
     async function getAccounts() {
@@ -27,7 +27,7 @@ function App() {
   async function newContract() {
     const beneficiary = document.getElementById('beneficiary').value;
     const arbiter = document.getElementById('arbiter').value;
-    const value = ethers.BigNumber.from(document.getElementById('wei').value);
+    const value = ethers.parseUnits(document.getElementById('wei').value,"gwei");
     const escrowContract = await deploy(signer, arbiter, beneficiary, value);
 
 
@@ -67,7 +67,7 @@ function App() {
 
         <label>
           Deposit Amount (in Wei)
-          <input type="text" id="wei" defaultValue={ethers.utils.parseEther("1.234")} />
+          <input type="text" id="wei" defaultValue={ethers.parseEther("1.234").toString()} />
         </label>
 
         <div
